@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    #avatar{
+        width: 200px;
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+    }
+    #avatar img{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+    #avatar #file{
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        position: absolute;
+        opacity: 0;
+    }
+
+</style>
+<body>
+   
+    <div id="avatar">
+        <img src="" alt="">
+        <input type="file" id="file">
+    </div>
+
+    <script>
+        var img = document.querySelector('#avatar img')
+        file.onchange=function(){
+            var f = file.files[0];
+            var fd = new FormData();
+            fd.append('avatar',f);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST","/upload");
+            xhr.send(fd);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                        img.src = xhr.response;
+                    }
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
